@@ -2,7 +2,11 @@
   <div>
     <MyHeader :addTodo="addTodo"></MyHeader>
     <MyList :todos="todos" :deleteItem="deleteItem"></MyList>
-    <MyFooter :todos="todos" v-bind:changeAll="changeAll" :deleteDone="deleteDone"></MyFooter>
+    <MyFooter
+      :todos="todos"
+      v-bind:changeAll="changeAll"
+      :deleteDone="deleteDone"
+    ></MyFooter>
   </div>
 </template>
 
@@ -21,7 +25,7 @@ export default {
   },
   data() {
     return {
-      todos: [],
+      todos: JSON.parse(localStorage.getItem("todos")) || [],
     };
   },
   methods: {
@@ -35,16 +39,25 @@ export default {
       });
     },
     changeAll(flag) {
-        console.log('changeAll');
+      console.log("changeAll");
       this.todos.forEach((todo) => {
         todo.done = flag;
       });
     },
-    deleteDone(){
-        this.todos=this.todos.filter((item)=>{
-            return item.done==false;
-        });
-    }
+    deleteDone() {
+      this.todos = this.todos.filter((item) => {
+        return item.done == false;
+      });
+    },
+  },
+  watch: {
+    todos: {
+      deep: true,
+
+      handler(val) {
+        localStorage.setItem("todos", JSON.stringify(val));
+      },
+    },
   },
 };
 </script>
