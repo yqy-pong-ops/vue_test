@@ -1,39 +1,26 @@
+<!--
+ * @Author: Axiuxiu
+ * @Date: 2022-03-01 10:15:45
+ * @LastEditTime: 2022-03-07 10:00:13
+ * @Description: 主组件
+-->
+
 <template>
-  <div class="main">
-      <!-- 传递函数 -->
-      <School :showSchoolName="showSchoolName"></School>
-      <!-- 自定义事件 -->
-      <Student v-on:showName="showStudentName"></Student>
-  </div>
+    <!-- <router-view></router-view> -->
+    <div class="app">
+        <Hello v-bind:name="'user'"></Hello>
+    </div>
 </template>
 
 <script>
-import School from './components/School.vue';
-import Student from './components/Student.vue';
+import Hello from './components/Hello.vue';
 
 export default {
-  components:{
-    School,
-    Student,
-  },
-  methods: {
-    showSchoolName(name){
-      console.log('学校名称：'+name);
-    },
-    showStudentName(name){
-      console.log('学生姓名：'+name);
-    },
-    // showTips(){
-    //   alert('Student组件被点击');
-    // }
-  },
-};
+    name:'App',
+    components:{Hello,},
+}
 </script>
 
 <style>
-  .main{
-    position: relative;
-    background-color: antiquewhite;
-    border: 1px solid azure;
-  }
+
 </style>
