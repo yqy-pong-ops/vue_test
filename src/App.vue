@@ -1,61 +1,39 @@
 <template>
-  <div>
-    <MyHeader v-on:addTodo="addTodo"></MyHeader>
-    <MyList :todos="todos" v-bind:deleteTodo="deleteTodo"></MyList>
-    <MyFooter v-bind:todos="todos" v-on:toggleAll="toggleAll" v-on:clearDone="clearDone"></MyFooter>
+  <div class="main">
+      <!-- 传递函数 -->
+      <School :showSchoolName="showSchoolName"></School>
+      <!-- 自定义事件 -->
+      <Student v-on:showName="showStudentName"></Student>
   </div>
 </template>
 
 <script>
-import MyFooter from './components/MyFooter.vue';
-import MyHeader from './components/MyHeader.vue';
-import MyList from './components/MyList.vue';
+import School from './components/School.vue';
+import Student from './components/Student.vue';
 
 export default {
-  name:'App',
   components:{
-    MyHeader,
-    MyList,
-    MyFooter,
-  },
-  data() {
-    return {
-      // 添加本地存储
-      todos:JSON.parse(localStorage.getItem('todos'))||[],
-    }
+    School,
+    Student,
   },
   methods: {
-    addTodo(obj){
-      this.todos.unshift(obj);
+    showSchoolName(name){
+      console.log('学校名称：'+name);
     },
-    deleteTodo(id){
-      this.todos=this.todos.filter((item)=>{
-        return item.id!=id;
-      });
+    showStudentName(name){
+      console.log('学生姓名：'+name);
     },
-    toggleAll(val){
-      this.todos.forEach(element => {
-        element.done=val;
-      });
-    },
-    clearDone(){
-      this.todos=this.todos.filter((item)=>{
-        return !item.done
-      });
-    }
+    // showTips(){
+    //   alert('Student组件被点击');
+    // }
   },
-  watch: {
-    todos:{
-      deep: true,
-
-      handler(val){
-        localStorage.setItem('todos',JSON.stringify(val));
-      }
-    }
-  },
-}
+};
 </script>
 
 <style>
-
+  .main{
+    position: relative;
+    background-color: antiquewhite;
+    border: 1px solid azure;
+  }
 </style>
